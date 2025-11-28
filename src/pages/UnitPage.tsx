@@ -88,6 +88,55 @@ const UnitPage = () => {
             </div>
           </Card>
 
+          {/* Detailed Study Notes */}
+          {unit.detailedNotes && unit.detailedNotes.length > 0 && (
+            <Card className="p-6 mb-8 bg-card/50 backdrop-blur-sm border-2 border-primary/20">
+              <div className="flex items-center gap-2 mb-6">
+                <FileText className="h-6 w-6 text-primary" />
+                <h2 className="text-2xl font-bold">Detailed Study Notes</h2>
+              </div>
+              
+              <div className="space-y-8">
+                {unit.detailedNotes.map((note, noteIdx) => (
+                  <div key={noteIdx} className="space-y-4">
+                    <h3 className="text-xl font-bold text-primary border-b-2 border-primary/30 pb-2">
+                      {note.section}
+                    </h3>
+                    
+                    {note.subsections.map((subsection, subIdx) => (
+                      <div key={subIdx} className="p-4 rounded-lg bg-gradient-to-r from-muted/40 to-muted/20 border border-border/50">
+                        <h4 className="text-lg font-semibold text-foreground mb-3 flex items-center gap-2">
+                          <div className="w-2 h-2 rounded-full bg-primary"></div>
+                          {subsection.title}
+                        </h4>
+                        
+                        {subsection.diagram && (
+                          <div className="mb-3 p-3 bg-accent/10 rounded-lg border-l-4 border-accent">
+                            <p className="font-mono text-sm text-accent-foreground">{subsection.diagram}</p>
+                          </div>
+                        )}
+                        
+                        <div className="space-y-1.5 text-foreground/90">
+                          {subsection.content.map((line, lineIdx) => (
+                            <p key={lineIdx} className={`${
+                              line.startsWith('•') ? 'pl-4' : 
+                              line.startsWith('  ') ? 'pl-8' : 
+                              line === '' ? 'h-2' :
+                              line.match(/^[🎯📊⚪🔑🎲📐🔗💪👶⚛️✓🔒💪🌳🕸️📝✏️🔐🔄👨‍💼👨‍🎨👨‍💻👥📁✅🏗️📋💾🔀💽➕📈⬆️⬇️🔍📌∪∩⨝🔄⬅️➡️↔️📐🎲💡🔤1️⃣N🏗️🔧🗑️✂️➕🔄❌🔍❌🕸️🎯]/) ? 'font-semibold mt-2' :
+                              'leading-relaxed'
+                            }`}>
+                              {line}
+                            </p>
+                          ))}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                ))}
+              </div>
+            </Card>
+          )}
+
           {/* Quick Revision Zone */}
           <Card className="p-6 mb-8 bg-card/50 backdrop-blur-sm border-2 border-secondary/20">
             <div className="flex items-center gap-2 mb-6">
