@@ -1,9 +1,19 @@
+export interface DetailedNote {
+  section: string;
+  subsections: {
+    title: string;
+    content: string[];
+    diagram?: string;
+  }[];
+}
+
 export interface Unit {
   id: number;
   title: string;
   weightage: string;
   topics: string[];
   revisionPoints: string[];
+  detailedNotes: DetailedNote[];
   memoryHacks: string[];
   questions: {
     mcqs: { question: string; options: string[]; correct: number }[];
@@ -30,6 +40,202 @@ export const units: Unit[] = [
       "Database Languages: DDL, DML, DCL, TCL",
       "Advantages: Data sharing, Security, Backup & Recovery",
       "Disadvantages: Cost, Complexity, Performance overhead"
+    ],
+    detailedNotes: [
+      {
+        section: "Database Management System (DBMS)",
+        subsections: [
+          {
+            title: "What is DBMS?",
+            content: [
+              "DBMS is software that enables users to create, maintain, and control access to databases",
+              "Acts as an interface between the database and end users or application programs",
+              "Examples: MySQL, Oracle, PostgreSQL, MongoDB, MS SQL Server"
+            ]
+          },
+          {
+            title: "DBMS vs File System",
+            content: [
+              "📁 File System Issues:",
+              "• Data Redundancy: Same data stored multiple times",
+              "• Data Inconsistency: Different versions of same data",
+              "• Difficulty in accessing data",
+              "• No concurrent access control",
+              "• Security problems",
+              "",
+              "✅ DBMS Advantages:",
+              "• Eliminates redundancy through normalization",
+              "• Maintains data consistency",
+              "• Provides efficient data access",
+              "• Supports concurrent users",
+              "• Built-in security mechanisms"
+            ]
+          }
+        ]
+      },
+      {
+        section: "Three-Schema Architecture",
+        subsections: [
+          {
+            title: "Architecture Levels",
+            content: [
+              "🏗️ External Level (View Level):",
+              "• Describes how users see the data",
+              "• Multiple external views possible",
+              "• Each user sees only relevant data",
+              "• Example: Student sees their marks, Teacher sees all marks",
+              "",
+              "📋 Conceptual Level (Logical Level):",
+              "• Describes what data is stored",
+              "• Complete view of entire database",
+              "• Defines relationships, constraints, security",
+              "• Database schema defined here",
+              "",
+              "💾 Internal Level (Physical Level):",
+              "• Describes how data is physically stored",
+              "• Deals with data structures, file organization",
+              "• Storage details, indexing, access paths",
+              "• Hidden from users"
+            ],
+            diagram: "Users → External Schema → Conceptual Schema → Internal Schema → Physical Storage"
+          },
+          {
+            title: "Data Independence",
+            content: [
+              "🔀 Logical Data Independence:",
+              "• Ability to change conceptual schema without changing external schema",
+              "• Add new attributes or entities without affecting users",
+              "• Example: Adding 'Email' field won't affect existing queries",
+              "",
+              "💽 Physical Data Independence:",
+              "• Ability to change internal schema without changing conceptual schema",
+              "• Change storage structure without affecting logical structure",
+              "• Example: Changing index structure doesn't affect queries"
+            ]
+          }
+        ]
+      },
+      {
+        section: "ACID Properties",
+        subsections: [
+          {
+            title: "Transaction Properties",
+            content: [
+              "⚛️ Atomicity (All or Nothing):",
+              "• Transaction is indivisible unit",
+              "• Either all operations complete or none",
+              "• Example: Bank transfer - either both debit and credit happen or neither",
+              "",
+              "✓ Consistency:",
+              "• Database must be consistent before and after transaction",
+              "• All integrity constraints must be satisfied",
+              "• Example: Total money in bank remains same after transfer",
+              "",
+              "🔒 Isolation:",
+              "• Concurrent transactions must not interfere",
+              "• Intermediate state not visible to other transactions",
+              "• Example: Two people withdrawing money - processed one at a time",
+              "",
+              "💪 Durability:",
+              "• Once committed, changes are permanent",
+              "• Survives system failures",
+              "• Example: After successful transaction, data survives power failure"
+            ]
+          }
+        ]
+      },
+      {
+        section: "Data Models",
+        subsections: [
+          {
+            title: "Types of Data Models",
+            content: [
+              "🌳 Hierarchical Model:",
+              "• Tree-like structure",
+              "• Parent-child relationships",
+              "• Example: File system, organizational chart",
+              "• Limitation: Cannot represent many-to-many relationships",
+              "",
+              "🕸️ Network Model:",
+              "• Graph structure",
+              "• More flexible than hierarchical",
+              "• Allows many-to-many relationships",
+              "• Complex to implement",
+              "",
+              "📊 Relational Model:",
+              "• Data stored in tables (relations)",
+              "• Most widely used",
+              "• Based on mathematical set theory",
+              "• SQL is the query language",
+              "",
+              "🎯 Object-Oriented Model:",
+              "• Combines database with OOP concepts",
+              "• Objects, classes, inheritance",
+              "• Suitable for complex data"
+            ]
+          }
+        ]
+      },
+      {
+        section: "Database Languages",
+        subsections: [
+          {
+            title: "SQL Sublanguages",
+            content: [
+              "📝 DDL (Data Definition Language):",
+              "• Define database structure",
+              "• Commands: CREATE, ALTER, DROP, TRUNCATE",
+              "• Example: CREATE TABLE Students (...)",
+              "",
+              "✏️ DML (Data Manipulation Language):",
+              "• Manipulate data in database",
+              "• Commands: SELECT, INSERT, UPDATE, DELETE",
+              "• Example: INSERT INTO Students VALUES (...)",
+              "",
+              "🔐 DCL (Data Control Language):",
+              "• Control access to data",
+              "• Commands: GRANT, REVOKE",
+              "• Example: GRANT SELECT ON Students TO User1",
+              "",
+              "🔄 TCL (Transaction Control Language):",
+              "• Manage transactions",
+              "• Commands: COMMIT, ROLLBACK, SAVEPOINT",
+              "• Example: COMMIT; saves all changes"
+            ]
+          }
+        ]
+      },
+      {
+        section: "Database Users",
+        subsections: [
+          {
+            title: "User Types",
+            content: [
+              "👨‍💼 Database Administrator (DBA):",
+              "• Complete control over database",
+              "• Creates user accounts, manages security",
+              "• Handles backup and recovery",
+              "• Monitors performance",
+              "",
+              "👨‍🎨 Database Designer:",
+              "• Designs database schema",
+              "• Identifies entities, relationships",
+              "• Creates ER diagrams",
+              "• Defines constraints",
+              "",
+              "👨‍💻 Application Programmer:",
+              "• Writes programs to interact with database",
+              "• Uses DML for data operations",
+              "• Creates user interfaces",
+              "",
+              "👥 End Users:",
+              "• Naive users: Use predefined applications",
+              "• Sophisticated users: Write SQL queries directly",
+              "• Standalone users: Personal databases"
+            ]
+          }
+        ]
+      }
     ],
     memoryHacks: [
       "ACID = ATM Machine rule (must work perfectly every time)",
@@ -61,6 +267,7 @@ export const units: Unit[] = [
     },
     visualFlow: ["Data Input", "DBMS Processing", "Storage Management", "Query Execution", "Output Results"]
   },
+
   {
     id: 2,
     title: "Relational Model",
@@ -77,6 +284,149 @@ export const units: Unit[] = [
       "Relational Algebra Operations: Select, Project, Union, Intersection",
       "Join Types: Natural, Inner, Outer (Left, Right, Full)",
       "Tuple Calculus = Non-procedural query language"
+    ],
+    detailedNotes: [
+      {
+        section: "Relational Model Basics",
+        subsections: [
+          {
+            title: "Relation Structure",
+            content: [
+              "📊 Relation (Table):",
+              "• Collection of related data entries",
+              "• Organized in rows and columns",
+              "• Each row is a tuple (record)",
+              "• Each column is an attribute (field)",
+              "",
+              "🔢 Degree and Cardinality:",
+              "• Degree = Number of attributes (columns)",
+              "• Cardinality = Number of tuples (rows)",
+              "• Example: Student(ID, Name, Age) has degree 3",
+              "",
+              "📦 Domain:",
+              "• Set of allowed values for an attribute",
+              "• Example: Age domain = {0, 1, 2, ..., 150}",
+              "• Ensures data integrity"
+            ],
+            diagram: "Table = Relation | Rows = Tuples | Columns = Attributes"
+          }
+        ]
+      },
+      {
+        section: "Keys in Relational Model",
+        subsections: [
+          {
+            title: "Types of Keys",
+            content: [
+              "🔑 Super Key:",
+              "• Any combination of attributes that uniquely identifies a tuple",
+              "• Can have redundant attributes",
+              "• Example: {ID}, {ID, Name}, {ID, Name, Age} all are super keys",
+              "",
+              "🎯 Candidate Key:",
+              "• Minimal super key (no redundant attributes)",
+              "• Multiple candidate keys possible",
+              "• Example: {ID}, {Email} can both be candidate keys",
+              "",
+              "👑 Primary Key:",
+              "• Selected candidate key",
+              "• Must be unique and NOT NULL",
+              "• Only one primary key per table",
+              "• Usually underlined in schema",
+              "",
+              "🔗 Foreign Key:",
+              "• References primary key of another table",
+              "• Establishes relationship between tables",
+              "• Can have NULL values",
+              "• Maintains referential integrity"
+            ],
+            diagram: "Super Key ⊃ Candidate Key ⊃ Primary Key"
+          }
+        ]
+      },
+      {
+        section: "Relational Algebra",
+        subsections: [
+          {
+            title: "Basic Operations",
+            content: [
+              "🔍 Select (σ):",
+              "• Selects rows based on condition",
+              "• Horizontal partitioning",
+              "• Example: σ(age>20)(Student)",
+              "",
+              "📌 Project (π):",
+              "• Selects specific columns",
+              "• Vertical partitioning",
+              "• Example: π(name, age)(Student)",
+              "",
+              "∪ Union:",
+              "• Combines tuples from two relations",
+              "• Removes duplicates",
+              "• Relations must be union-compatible",
+              "",
+              "∩ Intersection:",
+              "• Common tuples in both relations",
+              "• Relations must be union-compatible",
+              "",
+              "− Set Difference:",
+              "• Tuples in first but not in second",
+              "• R − S ≠ S − R"
+            ]
+          },
+          {
+            title: "Join Operations",
+            content: [
+              "⨝ Natural Join:",
+              "• Combines tables based on common attributes",
+              "• Automatically matches common columns",
+              "• Example: Student ⨝ Enrollment",
+              "",
+              "🔄 Inner Join:",
+              "• Returns matching rows from both tables",
+              "• Most common join type",
+              "",
+              "⬅️ Left Outer Join:",
+              "• All rows from left table",
+              "• Matching rows from right table",
+              "• NULL for non-matching right rows",
+              "",
+              "➡️ Right Outer Join:",
+              "• All rows from right table",
+              "• Matching rows from left table",
+              "• NULL for non-matching left rows",
+              "",
+              "↔️ Full Outer Join:",
+              "• All rows from both tables",
+              "• NULL where no match"
+            ]
+          }
+        ]
+      },
+      {
+        section: "Tuple & Domain Calculus",
+        subsections: [
+          {
+            title: "Calculus vs Algebra",
+            content: [
+              "📐 Tuple Relational Calculus:",
+              "• Non-procedural query language",
+              "• Describes WHAT to retrieve, not HOW",
+              "• Uses tuple variables",
+              "• Example: {t | t ∈ Student ∧ t.age > 20}",
+              "",
+              "🎲 Domain Relational Calculus:",
+              "• Uses domain variables",
+              "• Variables range over attribute domains",
+              "• Example: {<n, a> | ∃s(s ∈ Student ∧ s.name=n ∧ s.age=a ∧ a>20)}",
+              "",
+              "💡 Key Difference:",
+              "• Relational Algebra: Procedural (step-by-step)",
+              "• Relational Calculus: Declarative (describe result)"
+            ]
+          }
+        ]
+      }
     ],
     memoryHacks: [
       "Keys hierarchy: Super > Candidate > Primary (SCP like skincare routine)",
@@ -108,6 +458,7 @@ export const units: Unit[] = [
     },
     visualFlow: ["Tables", "Define Keys", "Apply Constraints", "Relational Operations", "Query Results"]
   },
+
   {
     id: 3,
     title: "SQL (Structured Query Language)",
@@ -124,6 +475,221 @@ export const units: Unit[] = [
       "Aggregate Functions: COUNT, SUM, AVG, MIN, MAX",
       "JOIN combines tables: INNER, LEFT, RIGHT, FULL OUTER",
       "Subquery = Query inside another query"
+    ],
+    detailedNotes: [
+      {
+        section: "SQL Basics",
+        subsections: [
+          {
+            title: "What is SQL?",
+            content: [
+              "💬 SQL = Structured Query Language",
+              "• Standard language for relational databases",
+              "• Used to create, modify, and query databases",
+              "• Case-insensitive (SELECT = select = SeLeCt)",
+              "• Statements end with semicolon (;)"
+            ]
+          }
+        ]
+      },
+      {
+        section: "DDL (Data Definition Language)",
+        subsections: [
+          {
+            title: "DDL Commands",
+            content: [
+              "🏗️ CREATE:",
+              "• Creates new database objects",
+              "• Example: CREATE TABLE Students (ID INT PRIMARY KEY, Name VARCHAR(50));",
+              "",
+              "🔧 ALTER:",
+              "• Modifies existing structure",
+              "• ADD: ALTER TABLE Students ADD Email VARCHAR(100);",
+              "• DROP: ALTER TABLE Students DROP COLUMN Email;",
+              "• MODIFY: ALTER TABLE Students MODIFY Name VARCHAR(100);",
+              "",
+              "🗑️ DROP:",
+              "• Deletes entire table structure and data",
+              "• Cannot be rolled back",
+              "• Example: DROP TABLE Students;",
+              "",
+              "✂️ TRUNCATE:",
+              "• Removes all rows but keeps structure",
+              "• Faster than DELETE",
+              "• Cannot be rolled back",
+              "• Example: TRUNCATE TABLE Students;"
+            ]
+          }
+        ]
+      },
+      {
+        section: "DML (Data Manipulation Language)",
+        subsections: [
+          {
+            title: "DML Commands",
+            content: [
+              "➕ INSERT:",
+              "• Adds new rows to table",
+              "• INSERT INTO Students VALUES (1, 'John', 20);",
+              "• INSERT INTO Students (ID, Name) VALUES (2, 'Jane');",
+              "",
+              "🔄 UPDATE:",
+              "• Modifies existing data",
+              "• UPDATE Students SET Age=21 WHERE ID=1;",
+              "• Without WHERE updates all rows!",
+              "",
+              "❌ DELETE:",
+              "• Removes rows from table",
+              "• DELETE FROM Students WHERE ID=1;",
+              "• Can be rolled back",
+              "• DELETE FROM Students; (deletes all rows)",
+              "",
+              "🔍 SELECT:",
+              "• Retrieves data from database",
+              "• Most commonly used command",
+              "• SELECT * FROM Students; (all columns)",
+              "• SELECT Name, Age FROM Students; (specific columns)"
+            ]
+          }
+        ]
+      },
+      {
+        section: "SQL Clauses",
+        subsections: [
+          {
+            title: "WHERE Clause",
+            content: [
+              "🎯 WHERE:",
+              "• Filters rows based on condition",
+              "• Used with SELECT, UPDATE, DELETE",
+              "• Example: SELECT * FROM Students WHERE Age > 20;",
+              "",
+              "Operators:",
+              "• Comparison: =, !=, <, >, <=, >=",
+              "• Logical: AND, OR, NOT",
+              "• Range: BETWEEN 18 AND 25",
+              "• Pattern: LIKE 'J%' (starts with J)",
+              "• List: IN ('John', 'Jane')",
+              "• NULL check: IS NULL, IS NOT NULL"
+            ]
+          },
+          {
+            title: "GROUP BY & HAVING",
+            content: [
+              "📊 GROUP BY:",
+              "• Groups rows with same values",
+              "• Used with aggregate functions",
+              "• Example: SELECT Dept, COUNT(*) FROM Employees GROUP BY Dept;",
+              "",
+              "🔍 HAVING:",
+              "• Filters groups (not rows)",
+              "• Used after GROUP BY",
+              "• Example: SELECT Dept, AVG(Salary) FROM Employees GROUP BY Dept HAVING AVG(Salary) > 50000;",
+              "",
+              "💡 WHERE vs HAVING:",
+              "• WHERE filters rows before grouping",
+              "• HAVING filters groups after grouping",
+              "• WHERE cannot use aggregate functions",
+              "• HAVING can use aggregate functions"
+            ]
+          },
+          {
+            title: "ORDER BY",
+            content: [
+              "🔤 ORDER BY:",
+              "• Sorts result set",
+              "• ASC: Ascending (default)",
+              "• DESC: Descending",
+              "• Example: SELECT * FROM Students ORDER BY Age DESC;",
+              "• Multiple columns: ORDER BY Dept ASC, Salary DESC;"
+            ]
+          }
+        ]
+      },
+      {
+        section: "Aggregate Functions",
+        subsections: [
+          {
+            title: "Functions",
+            content: [
+              "📈 COUNT():",
+              "• Counts number of rows",
+              "• COUNT(*): All rows including NULL",
+              "• COUNT(column): Non-NULL values",
+              "",
+              "➕ SUM():",
+              "• Sum of numeric column",
+              "• Example: SELECT SUM(Salary) FROM Employees;",
+              "",
+              "📊 AVG():",
+              "• Average of numeric column",
+              "• Ignores NULL values",
+              "",
+              "⬆️ MAX():",
+              "• Maximum value",
+              "• Works with numbers, dates, strings",
+              "",
+              "⬇️ MIN():",
+              "• Minimum value",
+              "• Works with numbers, dates, strings"
+            ]
+          }
+        ]
+      },
+      {
+        section: "JOIN Operations",
+        subsections: [
+          {
+            title: "Types of JOINs",
+            content: [
+              "🔗 INNER JOIN:",
+              "• Returns matching rows from both tables",
+              "• SELECT * FROM A INNER JOIN B ON A.id = B.id;",
+              "",
+              "⬅️ LEFT JOIN (LEFT OUTER JOIN):",
+              "• All rows from left table",
+              "• Matching rows from right table",
+              "• NULL for non-matching",
+              "",
+              "➡️ RIGHT JOIN (RIGHT OUTER JOIN):",
+              "• All rows from right table",
+              "• Matching rows from left table",
+              "",
+              "↔️ FULL OUTER JOIN:",
+              "• All rows from both tables",
+              "• NULL where no match",
+              "",
+              "❌ CROSS JOIN:",
+              "• Cartesian product",
+              "• Every row from first table with every row from second"
+            ]
+          }
+        ]
+      },
+      {
+        section: "Subqueries",
+        subsections: [
+          {
+            title: "Nested Queries",
+            content: [
+              "🔄 Subquery:",
+              "• Query inside another query",
+              "• Can be in SELECT, FROM, WHERE clauses",
+              "",
+              "Example 1: WHERE clause",
+              "SELECT Name FROM Students WHERE ID IN (SELECT StudentID FROM Enrollment WHERE Grade='A');",
+              "",
+              "Example 2: Correlated subquery",
+              "SELECT Name, Salary FROM Employees E1 WHERE Salary > (SELECT AVG(Salary) FROM Employees E2 WHERE E1.Dept = E2.Dept);",
+              "",
+              "💡 Types:",
+              "• Single-row subquery: Returns one value",
+              "• Multi-row subquery: Returns multiple values (use IN, ANY, ALL)",
+              "• Correlated subquery: References outer query"
+            ]
+          }
+        ]
+      }
     ],
     memoryHacks: [
       "SQL = Speak to Your Database",
@@ -156,6 +722,7 @@ export const units: Unit[] = [
     },
     visualFlow: ["Write SQL Query", "Parser Checks Syntax", "Optimizer Creates Plan", "Execute Query", "Fetch Results"]
   },
+
   {
     id: 4,
     title: "ER Model (Entity-Relationship)",
@@ -172,6 +739,209 @@ export const units: Unit[] = [
       "Cardinality: One-to-One, One-to-Many, Many-to-Many",
       "Participation: Total (double line), Partial (single line)",
       "Weak Entity = Depends on strong entity (has double rectangle)"
+    ],
+    detailedNotes: [
+      {
+        section: "ER Model Basics",
+        subsections: [
+          {
+            title: "What is ER Model?",
+            content: [
+              "📐 ER Model = Entity-Relationship Model",
+              "• Conceptual data model",
+              "• Graphical representation of database structure",
+              "• Blueprint before creating actual database",
+              "• Easier to understand than tables"
+            ]
+          }
+        ]
+      },
+      {
+        section: "Entities",
+        subsections: [
+          {
+            title: "Entity Types",
+            content: [
+              "🎯 Entity:",
+              "• Real-world object with independent existence",
+              "• Has attributes and can be uniquely identified",
+              "• Example: Student, Course, Employee, Department",
+              "",
+              "💪 Strong Entity:",
+              "• Has its own primary key",
+              "• Exists independently",
+              "• Represented by single rectangle",
+              "• Example: Student (has student ID)",
+              "",
+              "👶 Weak Entity:",
+              "• Does not have its own primary key",
+              "• Depends on strong entity for identification",
+              "• Represented by double rectangle",
+              "• Example: Dependent (depends on Employee)",
+              "• Has partial key (discriminator)",
+              "",
+              "🔗 Identifying Relationship:",
+              "• Relationship between weak and strong entity",
+              "• Represented by double diamond"
+            ],
+            diagram: "Strong Entity ⬜ | Weak Entity ⬜⬜ | Relationship ◇"
+          }
+        ]
+      },
+      {
+        section: "Attributes",
+        subsections: [
+          {
+            title: "Types of Attributes",
+            content: [
+              "⚪ Simple Attribute:",
+              "• Cannot be divided further",
+              "• Example: Age, Gender, ID",
+              "",
+              "🔘 Composite Attribute:",
+              "• Can be divided into sub-parts",
+              "• Example: Name (First Name + Last Name)",
+              "• Address (Street + City + State + PIN)",
+              "",
+              "🔑 Key Attribute:",
+              "• Uniquely identifies entity",
+              "• Represented by underlined text",
+              "• Example: Student_ID, Employee_ID",
+              "",
+              "🎲 Multivalued Attribute:",
+              "• Can have multiple values",
+              "• Represented by double oval",
+              "• Example: Phone_Numbers, Email_Addresses",
+              "",
+              "📐 Derived Attribute:",
+              "• Calculated from other attributes",
+              "• Represented by dashed oval",
+              "• Example: Age (derived from Date_of_Birth)",
+              "• Example: Total_Marks (sum of subject marks)"
+            ],
+            diagram: "Simple ⚪ | Composite (⚪⚪) | Key (⚪̲) | Multivalued ⚪⚪ | Derived (⚪)"
+          }
+        ]
+      },
+      {
+        section: "Relationships",
+        subsections: [
+          {
+            title: "Relationship Types",
+            content: [
+              "🔗 Relationship:",
+              "• Association between two or more entities",
+              "• Represented by diamond shape",
+              "• Example: Student ENROLLS_IN Course",
+              "",
+              "📊 Degree of Relationship:",
+              "• Unary (Recursive): One entity type",
+              "  Example: Employee MANAGES Employee",
+              "• Binary: Two entity types (most common)",
+              "  Example: Student ENROLLS Course",
+              "• Ternary: Three entity types",
+              "  Example: Supplier SUPPLIES Part TO Project",
+              "",
+              "Relationship can also have attributes:",
+              "• Example: ENROLLS_IN has Date, Grade"
+            ]
+          },
+          {
+            title: "Cardinality",
+            content: [
+              "1️⃣:1️⃣ One-to-One (1:1):",
+              "• One entity instance relates to one instance of other entity",
+              "• Example: Person HAS Passport",
+              "• Represented by 1 on both sides",
+              "",
+              "1️⃣:N One-to-Many (1:N):",
+              "• One entity instance relates to multiple instances",
+              "• Example: Department HAS Employees",
+              "• One department, many employees",
+              "• Represented by 1 and N",
+              "",
+              "N:N Many-to-Many (M:N):",
+              "• Multiple instances relate to multiple instances",
+              "• Example: Students ENROLL Courses",
+              "• One student takes many courses",
+              "• One course has many students",
+              "• Represented by M and N"
+            ],
+            diagram: "1:1 → Person─Has─Passport | 1:N → Dept─Has─Employees | M:N → Student─Enrolls─Course"
+          },
+          {
+            title: "Participation",
+            content: [
+              "✓ Total Participation (Mandatory):",
+              "• Every entity must participate in relationship",
+              "• Represented by double line",
+              "• Example: Every Employee WORKS_IN some Department",
+              "",
+              "⚪ Partial Participation (Optional):",
+              "• Not all entities need to participate",
+              "• Represented by single line",
+              "• Example: Not all Employees MANAGE a project"
+            ]
+          }
+        ]
+      },
+      {
+        section: "ER to Relational Mapping",
+        subsections: [
+          {
+            title: "Conversion Rules",
+            content: [
+              "📋 Strong Entity → Table:",
+              "• Create table with entity name",
+              "• All simple attributes become columns",
+              "• Key attribute becomes primary key",
+              "",
+              "👶 Weak Entity → Table:",
+              "• Create table with entity name",
+              "• Include partial key + primary key of strong entity",
+              "• Foreign key references strong entity",
+              "",
+              "1:1 Relationship:",
+              "• Add foreign key in either table",
+              "• Prefer total participation side",
+              "",
+              "1:N Relationship:",
+              "• Add foreign key on N side",
+              "• References primary key of 1 side",
+              "",
+              "M:N Relationship:",
+              "• Create new junction table",
+              "• Composite primary key (both foreign keys)",
+              "• Example: Student_Course(Student_ID, Course_ID, Grade)",
+              "",
+              "🎲 Multivalued Attribute:",
+              "• Create separate table",
+              "• Include entity's primary key",
+              "• Example: Phone(Emp_ID, Phone_Number)"
+            ]
+          }
+        ]
+      },
+      {
+        section: "ER Diagram Symbols",
+        subsections: [
+          {
+            title: "Quick Reference",
+            content: [
+              "⬜ Rectangle: Entity",
+              "⬜⬜ Double Rectangle: Weak Entity",
+              "◇ Diamond: Relationship",
+              "◇◇ Double Diamond: Identifying Relationship",
+              "⚪ Oval: Attribute",
+              "⚪⚪ Double Oval: Multivalued Attribute",
+              "(⚪) Dashed Oval: Derived Attribute",
+              "⚪̲ Underlined: Key Attribute",
+              "─ Single Line: Partial Participation",
+              "═ Double Line: Total Participation"
+            ]
+          }
+        ]
+      }
     ],
     memoryHacks: [
       "ER Diagram = Blueprint before building database",
@@ -203,6 +973,7 @@ export const units: Unit[] = [
     },
     visualFlow: ["Identify Entities", "Define Attributes", "Establish Relationships", "Draw ER Diagram", "Convert to Tables"]
   },
+
   {
     id: 5,
     title: "Relational Database Design & Normalization",
@@ -220,6 +991,7 @@ export const units: Unit[] = [
       "Dependency Preservation: All FDs maintained",
       "Denormalization: Trading normalization for performance"
     ],
+    detailedNotes: [],
     memoryHacks: [
       "Normalization = Marie Kondo of Database (organize everything)",
       "1NF → 2NF → 3NF → BCNF = Levels in a game",
@@ -267,6 +1039,7 @@ export const units: Unit[] = [
       "Deadlock Detection: Wait-for graph",
       "Recovery: Log-based, Checkpoint, Rollback"
     ],
+    detailedNotes: [],
     memoryHacks: [
       "Transaction = Pizza delivery (delivered or money back)",
       "Deadlock = Two people holding door for each other",
@@ -314,6 +1087,7 @@ export const units: Unit[] = [
       "Heuristic Optimization = Rule-based approach",
       "Cost-Based Optimization = Statistics-based approach"
     ],
+    detailedNotes: [],
     memoryHacks: [
       "Query Optimization = Finding shortest route on Google Maps",
       "Join Algorithms = Different ways to shuffle two decks",
@@ -361,6 +1135,7 @@ export const units: Unit[] = [
       "Backup & Recovery = Data protection mechanism",
       "Views provide security by limiting data access"
     ],
+    detailedNotes: [],
     memoryHacks: [
       "Security = Locks on house doors",
       "SQL Injection = Sneaking through back door",
@@ -408,6 +1183,7 @@ export const units: Unit[] = [
       "Static Hashing = Fixed number of buckets",
       "Dynamic Hashing = Grows with data"
     ],
+    detailedNotes: [],
     memoryHacks: [
       "Index = Library catalog system",
       "B+ Tree = Family tree with all info at bottom",
@@ -452,12 +1228,13 @@ export const units: Unit[] = [
       "Cursor Types: Implicit, Explicit",
       "Procedure = Stored program (can have IN/OUT parameters)",
       "Function = Returns single value",
-      "Trigger = Auto-executes on event (INSERT/UPDATE/DELETE)",
-      "Exception Handling = Error management"
+      "Trigger = Automatically executes on event",
+      "Exception Handling: Handles runtime errors"
     ],
+    detailedNotes: [],
     memoryHacks: [
-      "PL/SQL = SQL with programming superpowers",
-      "Cursor = Moving finger on page while reading",
+      "PL/SQL = SQL + Programming Logic",
+      "Cursor = TV Remote (navigate through channels)",
       "Trigger = Automatic alarm system"
     ],
     questions: {
@@ -468,22 +1245,22 @@ export const units: Unit[] = [
           correct: 1
         },
         {
-          question: "Trigger executes:",
-          options: ["Manually", "Automatically", "On schedule", "Never"],
-          correct: 1
+          question: "Trigger is associated with:",
+          options: ["SELECT", "DML operations", "DDL operations", "Both B and C"],
+          correct: 3
         }
       ],
       theory: [
         "Explain PL/SQL block structure with example.",
-        "What is cursor? Differentiate implicit and explicit cursor.",
+        "What is cursor? Differentiate between implicit and explicit cursor.",
         "What are triggers? Explain with example."
       ],
       practical: [
         "Write PL/SQL block to calculate factorial of number.",
         "Create procedure to update employee salary.",
-        "Write trigger that fires before deleting record."
+        "Write trigger to log all changes in Employee table."
       ]
     },
-    visualFlow: ["Declare Variables", "Begin Block", "Execute Logic", "Handle Exceptions", "End Block"]
+    visualFlow: ["Write PL/SQL Block", "Declare Variables", "Execute Logic", "Handle Exceptions", "Return Result"]
   }
 ];
